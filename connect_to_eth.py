@@ -38,8 +38,7 @@ def connect_with_middleware(contract_json):
   # Inject the Geth PoA middleware
 	w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
-  contract = w3.eth.contract(abi=abi, address=address)
-
+	contract = w3.eth.contract(abi=abi, address=address)
 	return w3, contract
 
 w3=connect_to_eth()
