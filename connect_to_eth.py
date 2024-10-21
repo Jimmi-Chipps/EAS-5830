@@ -1,6 +1,6 @@
 import json
 from web3 import Web3
-from web3.middleware import ExtraDataToPOAMiddleware
+from web3.middleware import geth_poa_middleware
 from web3.providers.rpc import HTTPProvider
 
 '''If you use one of the suggested infrastructure providers, the url will be of the form
@@ -10,11 +10,14 @@ infura_url = f"https://mainnet.infura.io/v3/{infura_token}"
 '''
 
 
+
 def connect_to_eth():
-	url = "https://mainnet.infura.io/v3/c90e861ee43b4b41be927f80f2e012bc"  # FILL THIS IN
+	url = "https://mainnet.infura.io/v3/c90e861ee43b4b41be927f80f2e012bc"
 	w3 = Web3(HTTPProvider(url))
 	assert w3.is_connected(), f"Failed to connect to provider at {url}"
 	return w3
+
+
 
 def connect_with_middleware(contract_json):
 	with open(contract_json, "r") as f:
@@ -33,12 +36,15 @@ def connect_with_middleware(contract_json):
 	# create a contract object. Read more on the docs pages at https://web3py.readthedocs.io/en/stable/middleware.html
 	# and https://web3py.readthedocs.io/en/stable/web3.contract.html
   # Inject the Geth PoA middleware
-	w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
+	w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
 	contract = 0
 
 	return w3, contract
 
+w3=connect_to_eth()
+w3.is_connected()
+w3.eth.get_block('latest')
 
 if __name__ == "__main__":
 	connect_to_eth()
