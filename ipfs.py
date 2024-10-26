@@ -39,3 +39,6 @@ def get_from_ipfs(cid, content_type="json"):
         return data
     else:
         raise Exception(f"Error fetching data from IPFS: {response.text}")
+    
+cid=pin_to_ipfs({'I saw' : 'water', "matban":"tancan"})
+print(get_from_ipfs(cid))
