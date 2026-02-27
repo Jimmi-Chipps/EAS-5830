@@ -1,6 +1,7 @@
 import json
 from web3 import Web3
-from web3.middleware import geth_poa_middleware
+#from web3.middleware import geth_poa_middleware
+from web3.middleware import ExtraDataToPOAMiddleware
 from web3.providers.rpc import HTTPProvider
 
 '''If you use one of the suggested infrastructure providers, the url will be of the form
@@ -36,7 +37,7 @@ def connect_with_middleware(contract_json):
 	# create a contract object. Read more on the docs pages at https://web3py.readthedocs.io/en/stable/middleware.html
 	# and https://web3py.readthedocs.io/en/stable/web3.contract.html
   # Inject the Geth PoA middleware
-	w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+	w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
 
 	contract = w3.eth.contract(abi=abi, address=address)
 	return w3, contract
