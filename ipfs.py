@@ -9,7 +9,7 @@ def pin_to_ipfs(data):
     pinata_url = "https://api.pinata.cloud/pinning/pinJSONToIPFS"
     headers =  {
         "Content-Type": "application/json",
-        "pinata_api_key": api_key,
+        "pinata_api_key": api_key, 
         "pinata_secret_api_key": secret_key,
     }
     #json_data = json.dumps(data)
