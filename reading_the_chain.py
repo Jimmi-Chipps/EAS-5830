@@ -25,7 +25,7 @@ def connect_with_middleware(contract_json):
 
 	# TODO complete this method
 	# The first section will be the same as "connect_to_eth()" but with a BNB url
-	url = "https://bsc-mainnet.infura.io/v3/2ea6510a3e0e4513b3d951b705f321a9"
+	url = "https://bsc-testnet.infura.io/v3/2ea6510a3e0e4513b3d951b705f321a9"
 	w3 = Web3(HTTPProvider(url))
 	assert w3.is_connected(), f"Failed to connect to provider at {url}"
 
@@ -81,6 +81,7 @@ def is_ordered_block(w3, block_num):
 		for i in range(len(price)-1):
 			if price[i] < price[i+1]:
 				return ordered
+		ordered = True
 		return ordered
 
 	
