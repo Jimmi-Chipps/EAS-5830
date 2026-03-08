@@ -34,12 +34,14 @@ def get_ape_info(ape_id):
     data['owner'] = contract.functions.ownerOf(ape_id).call()
 
     ##Image
-    data['image'] = contract.functions.tokenURI(ape_id).call()
+    ape_uri = contract.functions.tokenURI(ape_id).call()
+    uri = ape_uri.replace("ipfs://", "https://ipfs.io/ipfs/")
+    metadata = requests.get(uri).json()
+
+    data['image'] = metadata.get("image", "")
 
     ##Eyes
-    ape_uri = contract.functions.tokenURI(ape_id).call()
-    URI_eyes = ape_uri.replace("ipfs://", "https://ipfs.io/ipfs/")
-    response = requests.get(URI_eyes)
+    response = requests.get(uri)
     attributes=response.json().get("attributes", [])
     for attribute in attributes:
         if attribute.get("trait_type") == "Eyes":
